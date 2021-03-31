@@ -81,4 +81,16 @@ public class AddressBookDatabase {
         return addressBookData;
     }
 
+    public void updateRecord() {
+        String SqlQuery = "update address_book set phonenumber=92837465 where firstname=vishal; ";
+        try {
+            Connection connection = this.getConnection();
+            Statement statement = connection.createStatement();
+            long resultset = statement.executeUpdate(SqlQuery);
+        } catch (SQLException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
