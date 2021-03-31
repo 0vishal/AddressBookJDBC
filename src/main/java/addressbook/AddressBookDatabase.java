@@ -93,4 +93,26 @@ public class AddressBookDatabase {
     }
 
 
+    public List<AddressBookData> DateRange(String date) throws SQLException, IllegalAccessException {
+        List<AddressBookData> addressBookList=new ArrayList<>();
+        Connection connection=this.getConnection();
+
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement= connection.prepareStatement("Select * from address_book where date_added>=? ; ");
+            preparedStatement.setDate(1,Date.valueOf(date));
+            ResultSet resultSet=preparedStatement.executeQuery();
+            while (resultSet.next()){
+                AddressBookData addressBookData=new AddressBookData(resultSet.getString(1),resultSet.getString(2),resultSet.getString(3),resultSet.getString(4),resultSet.getString(5),resultSet.getString(6),resultSet.getInt(7),resultSet.getString(8),resultSet.getString(9),resultSet.getDate(10));
+                addressBookList.add(addressBookData);
+                connection.commit();
+            }
+            System.out.println(addressBookList.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+            connection.rollback();
+        }
+        return addressBookList;
+    }
+
 }

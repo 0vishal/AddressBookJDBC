@@ -3,6 +3,7 @@ import addressbook.AddressBookDatabase;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class AddressBookTest {
@@ -25,5 +26,13 @@ public class AddressBookTest {
         addressBookDatabase.updateRecord();
         List<AddressBookData>payrollServiceDataList=addressBookDatabase.readData();
         Assertions.assertEquals(11,payrollServiceDataList.size());
+    }
+
+    @Test
+    public void Date_range_test() throws SQLException, IllegalAccessException {
+        String date="2019-10-15";
+         addressBookDatabase= new AddressBookDatabase();
+        List<AddressBookData> addressBookList=addressBookDatabase.DateRange(date);
+        Assertions.assertEquals(3,addressBookList.size());
     }
 }
