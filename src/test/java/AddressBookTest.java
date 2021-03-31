@@ -35,4 +35,12 @@ public class AddressBookTest {
         List<AddressBookData> addressBookList=addressBookDatabase.DateRange(date);
         Assertions.assertEquals(3,addressBookList.size());
     }
+
+    @Test
+    public void recordsofstate() throws SQLException, IllegalAccessException {
+        String state="Maharashtra";
+        addressBookDatabase= new AddressBookDatabase();
+        String result=addressBookDatabase.countbyState(state);
+        Assertions.assertEquals("6",result);
+    }
 }
