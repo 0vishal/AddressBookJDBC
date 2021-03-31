@@ -134,7 +134,29 @@ public class AddressBookDatabase {
             connection.rollback();
         }
         return result;
+    }
 
+    public void InserNewRecord(String firstName, String lastName,String address, String city, String state,String email,int phonenumber,String name,String type,int date_added) throws SQLException, IllegalAccessException {
+        Connection connection=this.getConnection();
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement preparedStatement=connection.prepareStatement("insert into address_book(firstname,lastname,address,city,state,email,phonenumber,name,type,date_added) values (?,?,?,?,?,?,?,?,?,?); ");
+            preparedStatement.setString(1,firstName);
+            preparedStatement.setString(2,lastName);
+            preparedStatement.setString(3,address);
+            preparedStatement.setString(4,city);
+            preparedStatement.setString(5,state);
+            preparedStatement.setString(6,email);
+            preparedStatement.setInt(7,phonenumber);
+            preparedStatement.setString(8,name);
+            preparedStatement.setString(9,type);
+            preparedStatement.setDate(10,  Date.valueOf(date_added));
+            preparedStatement.executeUpdate();
+            connection.commit();
+        }catch (SQLException e){
+            e.printStackTrace();
+            connection.rollback();
+        }
     }
 
 }

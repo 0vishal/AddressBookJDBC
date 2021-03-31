@@ -11,9 +11,11 @@ public class AddressBookData {
         public int Phonenumber;
         public String Name;
         public String Type;
+        public String Date_added;
 
 
-        public AddressBookData(String firstName, String lastName,String address, String city, String state,String email,int phonenumber,String name,String type) {
+
+        public AddressBookData(String firstName, String lastName,String address, String city, String state,String email,int phonenumber,String name,String type,String date_added) {
             FirstName = firstName;
             LastName = lastName;
             Address = address;
@@ -23,5 +25,6 @@ public class AddressBookData {
             Phonenumber = phonenumber;
             Name = name;
             Type = type;
+            Date_added = date_added;
         }
     }

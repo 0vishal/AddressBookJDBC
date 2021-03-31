@@ -43,4 +43,22 @@ public class AddressBookTest {
         String result=addressBookDatabase.countbyState(state);
         Assertions.assertEquals("6",result);
     }
+
+    @Test
+    public void insertnewecord() throws SQLException, IllegalAccessException {
+        String firstname="Rahul";
+        String lastname="Vaidya";
+        String address="pune";
+        String city="pune";
+        String state="Maharashtra";
+        int phonenumber = 984248882;
+        String email="rahul@gmail.com";
+        String addressBookName="Addressbook3";
+        String joiningDate="2020-02-11";
+
+       addressBookDatabase= new AddressBookDatabase();
+        addressBookDatabase.InserNewRecord(firstname,lastname,address,city,state,email,phonenumber,name,type,date_added);
+        List<AddressBookData>addressBookData=addressBookDatabase.readData();
+        Assertions.assertEquals(1,addressBookData.size());
+    }
 }
