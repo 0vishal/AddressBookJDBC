@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AddressBookTest {
@@ -61,4 +64,24 @@ public class AddressBookTest {
         List<AddressBookData>addressBookData=addressBookDatabase.readData();
         Assertions.assertEquals(1,addressBookData.size());
     }
+
+    @Test
+    public void add_multiple_records() throws SQLException, IllegalAccessException,SQLException {
+        addressBookDatabase=new AddressBookDatabase();
+        List<AddressBookData> list=new ArrayList<>();
+        list.add(new AddressBookData("Pramod","Tripathi","Gandhinagar","Mumbai","Maharashtra","Pramod@gmail.com",935266677,"Addressbook2","friend", "2020-10-23"));
+        list.add(new AddressBookData("Roshan","Kadam","Devgad","Kokan","Maharashtra","Roshan@gmail.com",834466677,"Addressbook1","family", "2020-03-25"));
+        Instant start =Instant.now();
+        addressBookDatabase.insetRecordsUsingArrays(list);
+        Instant end = Instant.now();
+        System.out.println("Duration without thread "+ Duration.between(start,end));
+        Instant threadstart =Instant.now();
+        addressBookDatabase.insertContactUsingThread(list);
+        Instant threadend = Instant.now();
+        System.out.println("Duration using thread "+ Duration.between(threadstart,threadend));
+        List<AddressBookData> addressBookData=addressBookDatabase.readData();
+        Assertions.assertEquals(11,addressBookData.size());
+
+    }
+
 }
